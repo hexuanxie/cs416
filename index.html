@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+    <html>
+
+        <head>
+            <meta charset="utf-8">
+            <script src="https://d3js.org/d3.v5.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="styles.css">
+        </head>
+
+        <body onload='init()'>
+	        <h1 class="main-header">MD-PHD 2018-2023 Yearly Cycle Matriculant Stats</h1>
+			<h3 class="main-header"> Data source1: https://www.aamc.org/data-reports/students-residents/data/2023-facts-enrollment-graduates-and-md-phd-data</h3>
+	        <div class="main-buttons">
+	            <button onclick='sildeBack()'></button>
+	            <button id="slide1" onclick='silde(1)'>MCAT score</button>
+	            <button id="slide2" onclick='silde(2)'>GPA</button>
+	            <button id="slide3" onclick='silde(3)'>Applicant vs Matriculant</button>
+	            <button onclick='sildeForward()'>></button>
+	        </div>
+        </body>
+
+        <script>
+            var slidenum = 0;
+            var isGraphLoaded = false;
+            var margin = { top: 50, right: 150, bottom: 120, left: 150 };
+            const width = 2000 - margin.left - margin.right;
+            const height = 800 - margin.top - margin.bottom;
+
+            async function init() {
+                const data = [
+                    "data/mp_mcat.csv",            
+                    "data/mp_gpa.csv",             
+                    "data/mdphd_appNUm.csv"];
+
+                    const ynum= [
+                        [0, 530],  
+                        [0, 4],        
+                        [0, 2000]];
+
+                    const ylabel = [
+                        "Total MCAT Score",   
+                        "Total GPA",             
+                        "NUmber of People"];
+
+                    const xlabel = "Year";
+
+                    d3.select('body')
+                            .append('div')
+                            .attr('id', 'tooltip')
+                            .attr('style', 'position: absolute; opacity: 0;');
+					
+					    silde(1);
+	            }
+				
+				function sildeBack() {
+					if (sildenum > 1) {
+						sildenum = sildenum - 1;
+						silde(sildenum);
+					}
+				}
+				
+				function sildeForward() {
+					if (sildenum < 3) {
+						sildenum = state + 1;
+						silde(sildenum);
+					}
+				}
+				
+				function silde(newSildeNum) {
+					
+					sildenum = newSildeNum;
+					clearme();
+					
+					// Get the state for the filter ranges, execute associated method
+					if (sildenum == 1) {
+						d3.select('#infoHeader').text("MD-PHD Matriculant MCAT score");
+						
+					} else if (state == 2) {
+						d3.select('#infoHeader').text("MD-PHD Matriculant GPA");
+						
+					} else if (state == 3) {
+						d3.select('#infoHeader').text("MD-PHD Applicant and Matriculant");
+						
+					}
+				}
+
+        </script>
+</html>
