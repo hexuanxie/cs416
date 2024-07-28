@@ -1,0 +1,79 @@
+body {
+    background-color: rgb(245, 247, 217);
+    text-align: center;
+}
+  
+h1 {
+    color: black;
+    text-align: center;
+}
+h6 {
+    color: black;
+    text-align: center;
+}
+
+h4 {
+    color: black;
+    text-align: center;
+}
+
+button {
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+} 
+
+
+#btn1 {
+    background-color: green; 
+    color: white;
+}
+#btn2 {
+    background-color: red; 
+    color: white;
+}
+#btn3 {
+    background-color: blue;
+    color: white;
+}
+#prevButton {
+    background-color: lightgray;
+    color: black;
+}
+#nextButton {
+    background-color: lightgray; 
+    color: black;
+}
+
+svg {
+    max-width: 100%;
+    margin-left: 20px;
+    height: auto;
+}
+#chart {
+    margin-top: 20px;
+} 
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    height: auto;
+    padding: 5px;
+    font: 12px sans-serif;
+    background: pink;
+    border: 1px;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+.line {
+    fill: none;
+}
+
+#details {
+    margin-top: 20px;
+    margin-left: 250px;
+    text-align: left;
+}
