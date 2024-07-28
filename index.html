@@ -8,18 +8,21 @@
 </head>
 
 <body>
-    <h1 class="main-header">MD-PhD 2018-2023 Yearly Cycle Matriculant Stats</h1>
+    <h1 class="main-header">MD-PhD 2016-2024 Yearly Cycle Matriculant Stats</h1>
     <h6 class="main-header"> Data source: https://www.aamc.org/data-reports/students-residents/data/2023-facts-enrollment-graduates-and-md-phd-data</h6>
-    <h4 class="main-header">Click on data points for more detailed data</h4>
+    <!-- <h4 class="main-header">Click on data points for more detailed data</h4> -->
+    <h5 class="main-header">The data only show until cycle 2016-2017, since MCAT before 2016 use a different grading system, which is harder to compare and contrast</h5>
     <button id="prevButton">Previous</button>
     <button id="btn1">MCAT</button>
     <button id="btn2">GPA</button>
     <button id="btn3">Number of Matriculants</button>
     <button id="nextButton">Next</button>
+    <h5 class="main-header">Click on data points for more detailed data</h5>
     
     <div id="chart"></div>
     <div class="tooltip" id="tooltip" style="opacity: 0;"></div>
     <div id="details"></div>
+    <div id="notes"></div>
         
     <script>
         let sildenum = 0;
@@ -27,6 +30,8 @@
         const margin = { top: 30, right: 60, bottom: 70, left: 70 };
         const width = 900 - margin.left - margin.right;
         const height = 500 - margin.top - margin.bottom;
+
+        // let annote = '';
 
         const csvdata = [
             'data/mcat.csv',       // MCAT data
@@ -45,9 +50,13 @@
 
         const tooltip = d3.select('#tooltip');
         const details = d3.select('#details');
+        const notes = d3.select('#notes');
 
         function drawGraph(data, type){
             svg.selectAll('*').remove();
+            details.selectAll('*').remove();
+            notes.selectAll('*').remove();
+            // d3.select(chart).html = '';
 
             let ynum, xnum;
 
@@ -75,9 +84,9 @@
                     .call(d3.axisBottom(xnum))
                     .selectAll('text')
                     .attr('y', 20)
-                    .attr('x', -25)
-                    .attr('dy', '.35em')
-                    .style('text-anchor', 'start');
+                    .attr('x', 0);
+                    // .attr('dy', '.35em')
+                    // .style('text-anchor', 'start');
 
                 svg.append('text')
                     .attr('class', 'x-label')
@@ -100,6 +109,16 @@
                     .attr('d', line)
                     .style('stroke', 'green')
                     .style('stroke-width', 2);
+
+                notes.append('text')
+                      .text('This data show that the average \n'+
+                            'MCAT score has stayed about the \n'+
+                            'same cycle to cycle with the score \n' +
+                            'being around 516. \n'+
+                            'CPBS = Chemical and Physical \n'+
+                            'CARS = Critical reasoning \n'+
+                            'BBLS = Biological \n'+
+                            'PSBB = Psychology and Social');
 
                 svg.selectAll('.dot')
                     .data(data)
@@ -134,7 +153,8 @@
                         }).catch(error => {
                             console.error('Error loading the sumcat CSV file:', error);
                         });
-                    });
+                    })
+    
                 }
             
             else if (type === 'gpa'){
@@ -161,9 +181,9 @@
                     .call(d3.axisBottom(xnum))
                     .selectAll('text')
                     .attr('y', 20)
-                    .attr('x', -25)
-                    .attr('dy', '.35em')
-                    .style('text-anchor', 'start');
+                    .attr('x', 0);
+                    // .attr('dy', '.35em')
+                    // .style('text-anchor', 'start');
 
                 svg.append('text')
                     .attr('class', 'x-label')
@@ -185,8 +205,14 @@
                     .attr('class', 'line')
                     .attr('d', line)
                     .style('stroke', 'red')
-                    .style('fill', 'none')
+                    // .style('fill', 'none')
                     .style('stroke-width', 2);
+
+                notes.append('text')
+                    .text('This data show that the average \n'+
+                        'GPA has stayed about the same for \n'+
+                        'matriculants cycle to cycle with it \n' +
+                        'being around 3.8');
 
                 svg.selectAll('.dot')
                     .data(data)
@@ -246,9 +272,9 @@
                     .call(d3.axisBottom(xnum))
                     .selectAll('text')
                     .attr('y', 20)
-                    .attr('x', -25)
-                    .attr('dy', '.35em')
-                    .style('text-anchor', 'start');
+                    .attr('x', 0);
+                    // .attr('dy', '.35em')
+                    // .style('text-anchor', 'start');
 
                 svg.append('text')
                     .attr('class', 'x-label')
@@ -271,8 +297,17 @@
                     .attr('class', 'line')
                     .attr('d', line)
                     .style('stroke', 'blue')
-                    .style('fill', 'none')         // see if works
+                    // .style('fill', 'none')         // see if works
                     .style('stroke-width', 2);
+
+                notes.append('text')
+                    .text('This data shows the admission \n'+
+                        'rate for each cycle year. We can see \n'+
+                        'there is an increase in admission rate \n' +
+                        'throughout the years, except for cycle \n'+
+                        '2021-2022, where number of applicants \n' +
+                        'is higher than other cycles, but number \n'+
+                        'of matriculants is also the highest.');
 
                 svg.selectAll('.dot')
                     .data(data)
@@ -341,6 +376,10 @@
             };
         }
 
+        if (sildenum == 0){
+            printData(sildenum);
+        }
+
         document.getElementById('btn1').addEventListener('click', () => {
             sildenum = 0;
             printData(sildenum);
@@ -358,9 +397,9 @@
 
         // Event listeners for navigation buttons
         document.getElementById('prevButton').addEventListener('click', () => {
-            if (sildenum == 0) {
-                printData(sildenum);
-            }
+            // if (sildenum == 0) {
+            //     printData(sildenum);
+            // }
             sildenum = (sildenum - 1 + csvdata.length) % csvdata.length;
             printData(sildenum);
         });
@@ -369,7 +408,10 @@
             sildenum = (sildenum + 1) % csvdata.length;
             printData(sildenum);
         });
+
     
     </script>
+    <!-- <h6 class="main-header"> Data source: https://www.aamc.org/data-reports/students-residents/data/2023-facts-enrollment-graduates-and-md-phd-data</h6> -->
+
 </body>
 </html>

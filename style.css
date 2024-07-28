@@ -6,9 +6,14 @@ body {
 h1 {
     color: black;
     text-align: center;
-}
+} 
 h6 {
-    color: black;
+    color: rgba(105, 84, 239, 0.841);
+    text-align: center;
+}
+
+h5 {
+    color: rgba(66, 58, 58, 0.841);
     text-align: center;
 }
 
@@ -72,8 +77,23 @@ svg {
     fill: none;
 }
 
-#details {
-    margin-top: 20px;
-    margin-left: 250px;
+#chart{
     text-align: left;
+    margin-left: 200px;
+}
+
+#details {
+    margin-top: -250px;
+    margin-right: 80px;
+    text-align: right;
+}
+
+#notes{
+    margin-top: -450px;
+    margin-left: 1100px;
+    text-align: start;
+    /* vertical-align: auto; */
+    color: rgb(0, 0, 0);
+    font-size: large;
+    white-space: pre;
 }
